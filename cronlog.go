@@ -14,8 +14,7 @@ func run(command []string) {
     err := cmd.Run()
     if err != nil {
         fmt.Print(out.String())
-    }
-    if !cmd.ProcessState.Success() {
+    } else if !cmd.ProcessState.Success() {
         fmt.Print(out.String())
     }
 }
