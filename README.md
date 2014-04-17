@@ -1,6 +1,8 @@
 cronlog.go
 =======================================
 
+[![Gobuild Download](http://gobuild.io/badge/github.com/mallowlabs/cronlog/download.png)](http://gobuild.io/github.com/mallowlabs/cronlog)
+
 Go porting of [cronlog](https://github.com/kazuho/kaztools/blob/master/cronlog).
 This is my first go project :P
 
