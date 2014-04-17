@@ -1,7 +1,7 @@
 cronlog.go
 =======================================
 
-Go porting of [Cronlog](https://github.com/kazuho/kaztools/blob/master/cronlog).
+Go porting of [cronlog](https://github.com/kazuho/kaztools/blob/master/cronlog).
 This is my first go project :P
 
 Author
