@@ -1,9 +1,11 @@
 package main
 
-import "fmt"
-import "flag"
-import "os/exec"
-import "bytes"
+import (
+    "fmt"
+    "flag"
+    "os/exec"
+    "bytes"
+)
 
 func run(command []string) {
     rest := command[1:len(command)]
