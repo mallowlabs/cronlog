@@ -8,6 +8,9 @@ import (
 )
 
 func run(command []string) {
+	if len(command) == 0 {
+		return
+	}
 	rest := command[1:len(command)]
 	cmd := exec.Command(command[0], rest...)
 	var out bytes.Buffer
