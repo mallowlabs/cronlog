@@ -7,12 +7,12 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"syscall"
 )
 
-func output(command []string, text string) {
+func output(command []string, text string, config Config) {
 	fmt.Print(text)
 
-	config := ReadConfig("/etc/cronlog.toml")
 	if config.Slack.Url != "" {
 		message := "```\n"
 		message += text
@@ -31,14 +31,26 @@ func run(command []string) {
 	}
 	rest := command[1:len(command)]
 	cmd := exec.Command(command[0], rest...)
+
+	config := ReadConfig("/etc/cronlog.toml")
+
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &out
 	err := cmd.Run()
+
 	if err != nil {
-		output(command, out.String())
+		exitCode := 0
+		if exitError, ok := err.(*exec.ExitError); ok {
+			ws := exitError.Sys().(syscall.WaitStatus)
+			exitCode = ws.ExitStatus()
+		}
+
+		if exitCode != config.FindCommand(command[0]).SuccessCode {
+			output(command, out.String(), config)
+		}
 	} else if !cmd.ProcessState.Success() {
-		output(command, out.String())
+		output(command, out.String(), config)
 	}
 }
 
@@ -46,4 +58,3 @@ func main() {
 	flag.Parse()
 	run(flag.Args())
 }
-

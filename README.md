@@ -1,13 +1,31 @@
-cronlog.go
-=======================================
+# cronlog.go
 
 [![Gobuild Download](https://dn-gorelease.qbox.me/gorelease-download-blue.svg)](http://gobuild.io/github.com/mallowlabs/cronlog)
 
 Go porting of [cronlog](https://github.com/kazuho/kaztools/blob/master/cronlog).
 This is my first go project :P
 
-Slack Integration
----------------
+## Usage
+
+### Command
+
+```
+$ cronlog cmd args...
+```
+
+### Ignore some exit code
+
+Put `/etc/cronlog.toml`
+
+```toml
+[[Commands]]
+Path        = "/path/to/comannd"
+SuccessCode = 10
+```
+
+If this configuration exists, when `/path/to/comannd args...` exits with code `10`, the process will be recognized as success.
+
+### Slack Integration
 
 Put `/etc/cronlog.toml`
 
@@ -18,12 +36,10 @@ Url       = "https://hooks.slack.com/services/xxxxxx/yyyyyy/zzzzzz"
 #Username = "cronlog"
 ```
 
-Author
----------------
+## Author
 * @mallowlabs
 
-License
----------------
+## License
 The MIT License
 
 Copyright (c) 2014 mallowlabs
