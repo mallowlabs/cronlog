@@ -6,3 +6,9 @@ updates:
       interval: "weekly"
       timezone: "Asia/Tokyo"
       day: "friday"
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      timezone: "Asia/Tokyo"
+      day: "friday"
