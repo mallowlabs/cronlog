@@ -16,5 +16,4 @@ jobs:
           go-version-file: go.mod
       - name: Build
         run: |
-          go get github.com/BurntSushi/toml
           go build
