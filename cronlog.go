@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime/debug"
 	"strings"
 	"syscall"
 )
@@ -27,6 +28,12 @@ func output(command []string, text string, config Config) {
 
 func run(command []string) {
 	if len(command) == 0 {
+		if info, ok := debug.ReadBuildInfo(); ok {
+			fmt.Println(info.Main.Version)
+		} else {
+			fmt.Fprintln(os.Stderr, "Error: could not read build info")
+			os.Exit(1)
+		}
 		return
 	}
 	rest := command[1:len(command)]
