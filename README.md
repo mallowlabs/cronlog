@@ -34,6 +34,14 @@ Url       = "https://hooks.slack.com/services/xxxxxx/yyyyyy/zzzzzz"
 #Username = "cronlog"
 ```
 
+### Environment Variables
+
+You can override Slack settings using environment variables. These variables take precedence over the values in `/etc/cronlog.toml`.
+
+- `CRONLOG_SLACK_URL`: Webhook URL for Slack
+- `CRONLOG_SLACK_CHANNEL`: Slack channel (e.g., `#general`)
+- `CRONLOG_SLACK_USERNAME`: Username for Slack notification
+
 ## Author
 * @mallowlabs
 
