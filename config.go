@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/BurntSushi/toml"
 )
 
@@ -35,5 +37,16 @@ func ReadConfig(path string) Config {
 	if err != nil {
 		config = Config{[]CommandConfig{}, SlackConfig{"", "", ""}}
 	}
+
+	if url := os.Getenv("CRONLOG_SLACK_URL"); url != "" {
+		config.Slack.Url = url
+	}
+	if channel := os.Getenv("CRONLOG_SLACK_CHANNEL"); channel != "" {
+		config.Slack.Channel = channel
+	}
+	if username := os.Getenv("CRONLOG_SLACK_USERNAME"); username != "" {
+		config.Slack.Username = username
+	}
+
 	return config
 }
