@@ -4,6 +4,7 @@
 *.so
 
 /cronlog
+/dist/
 
 # Folders
 _obj
