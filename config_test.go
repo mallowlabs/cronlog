@@ -40,7 +40,7 @@ username = "original_user"
 		t.Setenv("CRONLOG_SLACK_URL", "")
 		t.Setenv("CRONLOG_SLACK_CHANNEL", "")
 		t.Setenv("CRONLOG_SLACK_USERNAME", "")
-		
+
 		config := ReadConfig(configPath)
 		expected := SlackConfig{
 			Url:      "http://example.com/original",
@@ -67,13 +67,13 @@ username = "original_user"
 			t.Errorf("Expected %+v, got %+v", expected, config.Slack)
 		}
 	})
-    
-    t.Run("Env vars without TOML", func(t *testing.T) {
+
+	t.Run("Env vars without TOML", func(t *testing.T) {
 		t.Setenv("CRONLOG_SLACK_URL", "http://example.com/envonly")
 		t.Setenv("CRONLOG_SLACK_CHANNEL", "#envonly")
 		t.Setenv("CRONLOG_SLACK_USERNAME", "envonly_user")
 
-        // Non-existent file
+		// Non-existent file
 		config := ReadConfig(filepath.Join(tmpDir, "nonexistent.toml"))
 		expected := SlackConfig{
 			Url:      "http://example.com/envonly",
