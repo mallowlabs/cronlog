@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -46,7 +46,7 @@ func PostToSlack(text string, attributes map[string]string, slackConfig SlackCon
 		url.Values{"payload": {string(params)}},
 	)
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	defer resp.Body.Close()
 
 	return string(body)
