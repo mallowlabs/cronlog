@@ -39,7 +39,7 @@ func PostToSlack(text string, attributes map[string]string, slackConfig SlackCon
 		text,
 		slackConfig.Username,
 		slackConfig.Channel,
-		[]Attachment{Attachment{"danger", fields}}})
+		[]Attachment{{"danger", fields}}})
 
 	resp, _ := http.PostForm(
 		slackConfig.Url,

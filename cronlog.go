@@ -36,7 +36,7 @@ func run(command []string) {
 		}
 		return
 	}
-	rest := command[1:len(command)]
+	rest := command[1:]
 	cmd := exec.Command(command[0], rest...)
 
 	config := ReadConfig("/etc/cronlog.toml")
