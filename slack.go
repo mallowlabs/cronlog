@@ -47,7 +47,7 @@ func PostToSlack(text string, attributes map[string]string, slackConfig SlackCon
 	)
 
 	body, _ := io.ReadAll(resp.Body)
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	return string(body)
 }
