@@ -9,11 +9,7 @@ import (
 
 func TestReadConfig_EnvVars(t *testing.T) {
 	// Create a temporary directory for config files
-	tmpDir, err := os.MkdirTemp("", "cronlog-test")
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer os.RemoveAll(tmpDir)
+	tmpDir := t.TempDir()
 
 	configPath := filepath.Join(tmpDir, "cronlog.toml")
 	configContent := `
