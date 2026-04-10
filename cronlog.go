@@ -8,7 +8,6 @@ import (
 	"os/exec"
 	"runtime/debug"
 	"strings"
-	"syscall"
 )
 
 func output(command []string, text string, config Config) {
@@ -26,15 +25,15 @@ func output(command []string, text string, config Config) {
 	}
 }
 
-func run(command []string) {
+func run(command []string) int {
 	if len(command) == 0 {
 		if info, ok := debug.ReadBuildInfo(); ok {
 			fmt.Println(info.Main.Version)
+			return 0
 		} else {
 			fmt.Fprintln(os.Stderr, "Error: could not read build info")
-			os.Exit(1)
+			return 1
 		}
-		return
 	}
 	rest := command[1:]
 	cmd := exec.Command(command[0], rest...)
@@ -46,22 +45,19 @@ func run(command []string) {
 	cmd.Stderr = &out
 	err := cmd.Run()
 
-	if err != nil {
-		exitCode := 0
-		if exitError, ok := err.(*exec.ExitError); ok {
-			ws := exitError.Sys().(syscall.WaitStatus)
-			exitCode = ws.ExitStatus()
-		}
+	exitCode := cmd.ProcessState.ExitCode()
 
+	if err != nil {
 		if exitCode != config.FindCommand(command[0]).SuccessCode {
 			output(command, out.String(), config)
 		}
 	} else if !cmd.ProcessState.Success() {
 		output(command, out.String(), config)
 	}
+	return exitCode
 }
 
 func main() {
 	flag.Parse()
-	run(flag.Args())
+	os.Exit(run(flag.Args()))
 }
